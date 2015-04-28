@@ -13,7 +13,10 @@
  *= require whitespace-reset
  *= require_tree .
 */
+<<<<<<< HEAD
 
 .row {
   padding-bottom: 1em;
 }
+=======
+>>>>>>> 9d77871a2d32d3ea4b83fcdd4cba61a1386af970
