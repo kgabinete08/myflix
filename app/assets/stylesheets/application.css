@@ -15,10 +15,6 @@
  *= require_tree .
 */
 
-.row {
-  padding-bottom: 1em;
-}
-
-.video.col-sm-2 {
+.horizontal-margin {
   margin: 1em 0;
 }
