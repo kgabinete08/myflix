@@ -14,7 +14,7 @@ Video.create!(title: 'Family Guy',
               small_cover_url: '/tmp/family_guy.jpg',
               category: comedy)
 
-Video.create!(title: 'Futurama',
+futurama = Video.create!(title: 'Futurama',
               description: 'Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation.',
               small_cover_url: '/tmp/futurama.jpg',
               category: comedy)
@@ -55,3 +55,8 @@ Video.create!(title: 'Monk',
               small_cover_url: '/tmp/monk.jpg',
               large_cover_url: '/tmp/monk_large.jpg',
               category: drama)
+
+tester = User.create!(email: "tester@abc.com", password: "password", full_name: "Tester Account")
+
+Review.create!(user: tester, video: futurama, rating: 3, content: "This is a mediocre show.")
+Review.create!(user: tester, video: futurama, rating: 5, content: "This is a cool show!")
