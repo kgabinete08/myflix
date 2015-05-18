@@ -41,12 +41,12 @@ describe ReviewsController do
           expect(response).to render_template "videos/show"
         end
 
-        it "sets @video" do
+        it "sets the @video variable" do
           post :create, review: { rating: 3 }, video_id: video.id
           expect(assigns(:video)).to eq(video)
         end
 
-        it "sets @reviews" do
+        it "sets the @reviews variable" do
           review = Fabricate(:review, video: video)
           post :create, review: { rating: 3 }, video_id: video.id
           expect(assigns(:reviews)).to match_array([review])

@@ -39,7 +39,7 @@ describe QueueItemsController do
       expect(QueueItem.first.video).to eq(video)
     end
 
-    it "creates the queue item that is related with the signed in user" do
+    it "creates the queue item that is associated with the signed in user" do
       alice = Fabricate(:user)
       session[:user_id] = alice.id
       video = Fabricate(:video)

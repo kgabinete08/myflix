@@ -6,6 +6,7 @@ describe SessionsController do
       get :new
       expect(response).to render_template :new
     end
+
     it "redirects to home page for authenticated users" do
       session[:user_id] = Fabricate(:user).id
       get :new
