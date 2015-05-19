@@ -15,9 +15,9 @@ Video.create!(title: 'Family Guy',
               category: comedy)
 
 futurama = Video.create!(title: 'Futurama',
-              description: 'Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation.',
-              small_cover_url: '/tmp/futurama.jpg',
-              category: comedy)
+                         description: 'Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation.',
+                         small_cover_url: '/tmp/futurama.jpg',
+                         category: comedy)
 
 Video.create!(title: 'South Park',
               description: 'Follow the misadventures of four crazy grade-schoolers in the dysfunctional town of South Park, Colorado.',

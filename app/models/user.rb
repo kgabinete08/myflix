@@ -5,4 +5,8 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :queue_items
+
+   def queued_video?(video)
+    self.queue_items.map(&:video).include?(video)
+  end
 end
