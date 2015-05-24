@@ -5,6 +5,7 @@ describe QueueItem do
   it { should belong_to(:video) }
   it { should delegate_method(:category).to(:video) }
   it { should delegate_method(:title).to(:video).with_prefix(:video) }
+  it { should validate_numericality_of(:position).only_integer }
 
   describe "#rating" do
     it "returns the rating from the review when the review is present" do
