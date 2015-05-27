@@ -20,7 +20,7 @@
             = f.label "Rate this video"
             .row
               .col-sm-3
-                = f.select :rating, options_for_select(stars_for_rating), {}, { class: "form-control"}
+                = f.select :rating, options_for_rating, {}, { class: "form-control"}
           .form-group
             .row
               .col-sm-8
