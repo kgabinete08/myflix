@@ -2,9 +2,9 @@ require 'spec_helper'
 
 feature 'User interacts with the queue' do
   scenario 'user adds and reorders videos in the queue' do
-    action = Fabricate(:category)
-    mad_max = Fabricate(:video, title: "Mad Max", category: action)
-    scarface = Fabricate(:video, title: "Scarface", category: action)
+    action      = Fabricate(:category)
+    mad_max     = Fabricate(:video, title: "Mad Max", category: action)
+    scarface    = Fabricate(:video, title: "Scarface", category: action)
     transporter = Fabricate(:video, title: "Transporter", category: action)
 
     sign_in

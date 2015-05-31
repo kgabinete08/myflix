@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
       queue_item.update(position: index + 1)
     end
   end
+
+  def queue_item_in_queue?(queue_item)
+    queue_items.include?(queue_item)
+  end
 end
