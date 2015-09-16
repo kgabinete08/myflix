@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :queue_items, -> { order(:position) }
+  has_many :reviews, -> { order("created_at DESC") }
 
   def queued_video?(video)
     self.queue_items.map(&:video).include?(video)
