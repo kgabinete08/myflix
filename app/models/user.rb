@@ -22,4 +22,12 @@ class User < ActiveRecord::Base
   def queue_item_in_queue?(queue_item)
     queue_items.include?(queue_item)
   end
+
+  def already_follows?(user)
+    following_relationships.map(&:leader).include?(user)
+  end
+
+  def can_follow?(user)
+    !(self.already_follows?(user) || user == self)
+  end
 end
