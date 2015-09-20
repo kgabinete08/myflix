@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :leading_relationships, class_name: "Relationship", foreign_key: :leader_id
 
+  before_create :generate_token
+
   def queued_video?(video)
     self.queue_items.map(&:video).include?(video)
   end
@@ -29,5 +31,20 @@ class User < ActiveRecord::Base
 
   def can_follow?(user)
     !(self.already_follows?(user) || user == self)
+  end
+
+  def create_reset_token
+    reset_token = SecureRandom.urlsafe_base64
+    update_attribute(:reset_token, reset_token)
+  end
+
+  def clear_reset_token
+    update_attribute(:reset_token, nil)
+  end
+
+  private
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64
   end
 end

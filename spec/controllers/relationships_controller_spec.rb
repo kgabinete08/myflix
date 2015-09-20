@@ -5,6 +5,7 @@ describe RelationshipsController do
     it_behaves_like "requires sign in" do
       let(:action) { get :index }
     end
+
     it "sets @relationships to the current users following relationships" do
       alice = Fabricate(:user)
       set_current_user(alice)
