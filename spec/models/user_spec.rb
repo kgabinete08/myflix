@@ -42,4 +42,21 @@ describe User do
       expect(alice.already_follows?(bob)).to be false
     end
   end
+
+  describe "#create_reset_token" do
+    it "creates a random reset token" do
+      alice = Fabricate(:user)
+      alice.create_reset_token
+      expect(alice.reset_token).to be_present
+    end
+  end
+
+  describe "#clear_reset_token" do
+    it "clears the reset token" do
+      alice = Fabricate(:user)
+      alice.update_column(:reset_token, '12345')
+      alice.clear_reset_token
+      expect(alice.reset_token).to be_nil
+    end
+  end
 end
