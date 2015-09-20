@@ -10,7 +10,7 @@ describe PasswordResetsController do
 
       it "sets the error message" do
         post :create, email: ''
-        expect(flash[:danger]).to eq("Email field cannot be blank.")
+        expect(flash[:danger]).to be_present
       end
     end
 
@@ -57,10 +57,9 @@ describe PasswordResetsController do
 
   describe "PATCH update" do
     context "with valid reset_token" do
-      let(:alice) { Fabricate(:user, password: 'old_password') }
+      let!(:alice) { Fabricate(:user, password: 'old_password', reset_token: '12345') }
 
       before do
-        alice.update_column(:reset_token, '12345')
         patch :update, id: '12345', user: { password: 'new_password' }
       end
 

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :leading_relationships, class_name: "Relationship", foreign_key: :leader_id
 
-  before_create :generate_token
+  before_create :set_token
 
   def queued_video?(video)
     self.queue_items.map(&:video).include?(video)
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def create_reset_token
-    reset_token = SecureRandom.urlsafe_base64
+    reset_token = generate_token
     update_attribute(:reset_token, reset_token)
   end
 
@@ -44,7 +44,11 @@ class User < ActiveRecord::Base
 
   private
 
+  def set_token
+    self.token = generate_token
+  end
+
   def generate_token
-    self.token = SecureRandom.urlsafe_base64
+    SecureRandom.urlsafe_base64
   end
 end

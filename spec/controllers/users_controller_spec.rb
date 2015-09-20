@@ -23,6 +23,24 @@ describe UsersController do
       end
     end
 
+    context "with invalid input" do
+      before do
+        post :create, user: { email: "bob@abc.com", password: "password" }
+      end
+
+      it "does not create the user" do
+        expect(User.count).to eq(0)
+      end
+
+      it "renders the :new template" do
+        expect(response).to render_template :new
+      end
+
+      it "sets @user" do
+        expect(assigns(:user)).to be_instance_of(User)
+      end
+    end
+
     context "send welcome email" do
       after { ActionMailer::Base.deliveries.clear }
 
@@ -39,24 +57,6 @@ describe UsersController do
       it "does not send an email when input is invalid" do
         post :create, user: { email: 'bob@example.com' }
         expect(ActionMailer::Base.deliveries).to be_empty
-      end
-    end
-
-    context "with invalid input" do
-      before do
-        post :create, user: { email: "bob@abc.com", password: "password" }
-      end
-
-      it "does not create the user" do
-        expect(User.count).to eq(0)
-      end
-
-      it "renders the :new template" do
-        expect(response).to render_template :new
-      end
-
-      it "sets @user" do
-        expect(assigns(:user)).to be_instance_of(User)
       end
     end
   end
