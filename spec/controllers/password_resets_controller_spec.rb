@@ -57,31 +57,26 @@ describe PasswordResetsController do
 
   describe "PATCH update" do
     context "with valid reset_token" do
-      it "redirects to the sign in page" do
-        alice = Fabricate(:user, password: 'old_password')
+      let(:alice) { Fabricate(:user, password: 'old_password') }
+
+      before do
         alice.update_column(:reset_token, '12345')
         patch :update, id: '12345', user: { password: 'new_password' }
+      end
+
+      it "redirects to the sign in page" do
         expect(response).to redirect_to sign_in_path
       end
 
       it "updates the user's password" do
-        alice = Fabricate(:user, password: 'old_password')
-        alice.update_column(:reset_token, '12345')
-        patch :update, id: '12345', user: { password: 'new_password' }
         expect(alice.reload.authenticate('new_password')).to eq(alice)
       end
 
       it "set the success message" do
-        alice = Fabricate(:user, password: 'old_password')
-        alice.update_column(:reset_token, '12345')
-        patch :update, id: '12345', user: { password: 'new_password' }
         expect(flash[:success]).to be_present
       end
 
       it "clears the user's reset token" do
-        alice = Fabricate(:user, password: 'old_password')
-        alice.update_column(:reset_token, '12345')
-        patch :update, id: '12345', user: { password: 'new_password' }
         expect(alice.reload.reset_token).to be_nil
       end
     end

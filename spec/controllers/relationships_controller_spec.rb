@@ -21,25 +21,23 @@ describe RelationshipsController do
       let(:action) { post :create, leader_id: 2 }
     end
 
+    let(:alice) { Fabricate(:user) }
+
+    before { set_current_user(alice) }
+
     it "redirects to the people page" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       post :create, leader_id: bob.id
       expect(response).to redirect_to people_path
     end
 
     it "creates a relationship with the current user as follower" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       post :create, leader_id: bob.id
       expect(alice.following_relationships.first.leader).to eq(bob)
     end
 
     it "does not create a relationship if the current user is already a follower" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       Fabricate(:relationship, leader: bob, follower: alice)
       post :create, leader_id: bob.id
@@ -47,8 +45,6 @@ describe RelationshipsController do
     end
 
     it "does not allow a user to follow themself" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       post :create, leader_id: alice.id
       expect(Relationship.count).to eq(0)
     end
@@ -59,9 +55,11 @@ describe RelationshipsController do
       let(:action) { delete :destroy, id: 1 }
     end
 
+    let(:alice) { Fabricate(:user) }
+
+    before { set_current_user(alice) }
+
     it "redirects to the people page" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       relationship = Fabricate(:relationship, follower: alice, leader: bob)
       delete :destroy, id: relationship.id
@@ -69,8 +67,6 @@ describe RelationshipsController do
     end
 
     it "deletes the relationship if the current user is the follower" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       relationship = Fabricate(:relationship, follower: alice, leader: bob)
       delete :destroy, id: relationship.id
@@ -78,8 +74,6 @@ describe RelationshipsController do
     end
 
     it "does not delete the relationship if the current user is not the follower" do
-      alice = Fabricate(:user)
-      set_current_user(alice)
       bob = Fabricate(:user)
       charlie = Fabricate(:user)
       relationship = Fabricate(:relationship, follower: charlie, leader: bob)
