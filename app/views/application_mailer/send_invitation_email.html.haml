@@ -5,4 +5,4 @@
       MyFlix
     %p #{@invitation.inviter.full_name} invited you to join MyFlix!
     %p= @invitation.message
-    %p= link_to "Accept invitation", '#'
+    %p= link_to "Accept invitation", register_with_token_url(@invitation.token)

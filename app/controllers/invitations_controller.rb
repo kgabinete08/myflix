@@ -6,10 +6,15 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    invitation = Invitation.create(invitation_params.merge!(inviter_id: current_user.id))
-    ApplicationMailer.send_invitation_email(invitation).deliver
-    flash[:success] = "Your invitation has been sent!"
-    redirect_to new_invitation_path
+    @invitation = Invitation.new(invitation_params.merge!(inviter_id: current_user.id))
+    if @invitation.save
+      ApplicationMailer.send_invitation_email(@invitation).deliver
+      flash[:success] = "Your invitation has been sent!"
+      redirect_to new_invitation_path
+    else
+      flash[:danger] = "All fields must be completed."
+      render :new
+    end
   end
 
   private
