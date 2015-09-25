@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     !(self.already_follows?(user) || user == self)
   end
 
+  def follow(user)
+    following_relationships.create(leader: user) if can_follow?(user)
+  end
+
   def create_reset_token
     reset_token = generate_token
     update_attribute(:reset_token, reset_token)

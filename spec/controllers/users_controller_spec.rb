@@ -10,16 +10,39 @@ describe UsersController do
 
   describe "POST create" do
     context "with valid input" do
-      before do
-        post :create, user: Fabricate.attributes_for(:user)
-      end
 
       it "creates the user" do
+        post :create, user: Fabricate.attributes_for(:user)
         expect(User.count).to eq(1)
       end
 
       it "redirects to the sign in page" do
+        post :create, user: Fabricate.attributes_for(:user)
         expect(response).to redirect_to sign_in_path
+      end
+
+      it "makes the user follow the inviter" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: invitation.recipient_email, password: 'password', full_name: 'Bob Jones' }, invitation_token: invitation.token
+        bob = User.find_by(email: 'bob@example.com')
+        expect(bob.already_follows?(alice)).to be true
+      end
+
+      it "makes the inviter follow the user" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: invitation.recipient_email, password: 'password', full_name: 'Bob Jones' }, invitation_token: invitation.token
+        bob = User.find_by(email: 'bob@example.com')
+        expect(alice.already_follows?(bob)).to be true
+      end
+
+      it "expires the invitation upon acceptance" do
+        alice = Fabricate(:user)
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'bob@example.com')
+        post :create, user: { email: invitation.recipient_email, password: 'password', full_name: 'Bob Jones' }, invitation_token: invitation.token
+        bob = User.find_by(email: 'bob@example.com')
+        expect(Invitation.first.token).to be_nil
       end
     end
 
