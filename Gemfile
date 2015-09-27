@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.5'
 
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
@@ -24,7 +24,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails', '2.99'
+  gem 'rspec-rails'
 end
 
 group :test do
