@@ -9,13 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      if params[:invitation_token].present?
-        invitation = Invitation.find_by_token(params[:invitation_token])
-        @user.follow(invitation.inviter)
-        invitation.inviter.follow(@user)
-        invitation.update_column(:token, nil)
-      end
-
+      handle_invitation
       ApplicationMailer.send_welcome_email(@user).deliver
       redirect_to sign_in_path
     else
@@ -42,5 +36,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :full_name)
+  end
+
+  def handle_invitation
+    if params[:invitation_token].present?
+      invitation = Invitation.find_by_token(params[:invitation_token])
+      @user.follow(invitation.inviter)
+      invitation.inviter.follow(@user)
+      invitation.update_column(:token, nil)
+    end
   end
 end
