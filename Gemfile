@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.1.7'
 
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
