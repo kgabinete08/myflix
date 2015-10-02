@@ -13,6 +13,8 @@ gem 'pg'
 gem 'bcrypt'
 gem 'fabrication'
 gem 'faker'
+gem 'sidekiq'
+gem 'puma'
 
 group :development do
   gem 'thin'
