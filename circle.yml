@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.1.7
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app intense-sierra-5082
+      - heroku pg:backups capture --app intense-sierra-5082
+      - git push git@heroku.com:intense-sierra-5082.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app intense-sierra-5082
+      - heroku maintenance:off --app intense-sierra-5082
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app staging-intense-sierra-5082
+      - git push git@heroku.com:staging-intense-sierra-5082.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app staging-intense-sierra-5082
+      - heroku maintenance:off --app staging-intense-sierra-5082
