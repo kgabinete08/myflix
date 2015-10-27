@@ -16,6 +16,9 @@ gem 'faker'
 gem 'sidekiq'
 gem 'puma'
 gem 'sentry-raven'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'figaro'
 
 group :development do
   gem 'thin'
@@ -36,6 +39,10 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'capybara-email'
+end
+
+group :staging, :production do
+  gem 'carrierwave-aws'
 end
 
 group :production do

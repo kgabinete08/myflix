@@ -16,3 +16,6 @@
 
 /config/database.yml
 /Procfile.dev
+
+# Ignore application configuration
+/config/application.yml
