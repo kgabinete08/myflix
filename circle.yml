@@ -14,6 +14,7 @@ deployment:
     branch: staging
     commands:
       - heroku maintenance:on --app staging-intense-sierra-5082
+      - git fetch --unshallow
       - git push git@heroku.com:staging-intense-sierra-5082.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app staging-intense-sierra-5082
       - heroku maintenance:off --app staging-intense-sierra-5082
