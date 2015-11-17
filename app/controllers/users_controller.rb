@@ -9,20 +9,25 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     token = params[:stripeToken]
 
-    if @user.save
-      handle_invitation
-      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    if @user.valid?
       begin
-        charge = Stripe::Charge.create(
-          :amount => 999, 
-          :currency => "usd",
+        charge = StripeWrapper::Charge.create({
+          :amount => 999,
           :source => token,
           :description => "MyFlix sign up charge for #{@user.email}"
-        )
+        })
       rescue Stripe::CardError => e
       end
-      ApplicationMailer.send_welcome_email(@user).deliver
-      redirect_to sign_in_path
+
+      if charge.successful?
+        @user.save
+        handle_invitation
+        ApplicationMailer.send_welcome_email(@user).deliver
+        redirect_to sign_in_path
+      else
+        flash[:danger] = charge.error_message
+        render :new
+      end
     else
       render :new
     end
