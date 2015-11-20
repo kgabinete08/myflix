@@ -10,15 +10,11 @@ class UsersController < ApplicationController
     token = params[:stripeToken]
 
     if @user.valid?
-      begin
-        charge = StripeWrapper::Charge.create({
-          :amount => 999,
-          :source => token,
-          :description => "MyFlix sign up charge for #{@user.email}"
-        })
-      rescue Stripe::CardError => e
-      end
-
+      charge = StripeWrapper::Charge.create(
+        amount: 999,
+        source: token,
+        description: "MyFlix sign up charge for #{@user.email}"
+      )
       if charge.successful?
         @user.save
         handle_invitation
@@ -26,11 +22,11 @@ class UsersController < ApplicationController
         flash[:success] = "Thank you for registering with MyFlix, please sign in."
         redirect_to sign_in_path
       else
-        flash[:danger] = charge.error_message
+        flash.now[:danger] = charge.error_message
         render :new
       end
     else
-      flash[:error] = "Please check your information below."
+      flash.now[:error] = "Please check your information below."
       render :new
     end
   end
