@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserSignup do
   describe '#sign_up' do
-    context 'with valid personal info' do
+    context 'with valid personal info and accepted card' do
       let(:charge) { double(:charge, successful?: true) }
       before { allow(StripeWrapper::Charge).to receive(:create).and_return(charge) }
       after { ActionMailer::Base.deliveries.clear }
