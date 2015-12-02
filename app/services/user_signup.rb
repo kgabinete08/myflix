@@ -17,17 +17,15 @@ class UserSignup
         handle_invitation(invitation_token)
         ApplicationMailer.send_welcome_email(@user).deliver
         @status = :success
-        self
       else
         @status = :failed
         @error_message = charge.error_message
-        self
       end
     else
       @status = :failed
       @error_message = "Please check your information below."
-      self
     end
+    self
   end
 
   def successful?
@@ -38,7 +36,7 @@ class UserSignup
 
   def handle_invitation(invitation_token)
     if invitation_token.present?
-      invitation = Invitation.find_by_token(invitation_token)
+      invitation = Invitation.find_by(token: invitation_token)
       @user.follow(invitation.inviter)
       invitation.inviter.follow(@user)
       invitation.update_column(:token, nil)
