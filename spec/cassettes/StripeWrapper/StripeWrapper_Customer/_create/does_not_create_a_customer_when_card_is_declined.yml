@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&description=MyFlix+sign+up+charge+for+bob%40example.com&source=tok_178jCfGhmKibFl0dfqwTDLVD
+      string: card[cvc]=590&card[exp_month]=11&card[exp_year]=2017&card[number]=4000000000000002
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,20 +22,20 @@ http_interactions:
         Kevins-MBP.attlocal.net 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
         PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Kevins-MBP.attlocal.net"}'
       Content-Length:
-      - '115'
+      - '82'
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Server:
       - nginx
       Date:
-      - Thu, 19 Nov 2015 03:35:22 GMT
+      - Thu, 10 Dec 2015 04:26:33 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '162'
+      - '782'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,28 +49,55 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NUBUDjh8XcBRa
+      - req_7VMkDtIgYGbJcs
       Stripe-Version:
       - '2015-10-16'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
     body:
       encoding: UTF-8
       string: |
         {
-          "error": {
-            "message": "Your card was declined.",
-            "type": "card_error",
-            "code": "card_declined",
-            "charge": "ch_178jCfGhmKibFl0dxOWOKvSy"
-          }
+          "id": "tok_17GM0jGhmKibFl0dNqmG1FZ7",
+          "object": "token",
+          "card": {
+            "id": "card_17GM0jGhmKibFl0dtkkH4rmg",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_zip_check": null,
+            "brand": "Visa",
+            "country": "US",
+            "cvc_check": "unchecked",
+            "dynamic_last4": null,
+            "exp_month": 11,
+            "exp_year": 2017,
+            "fingerprint": "h5cFwRvOoKvurUNc",
+            "funding": "credit",
+            "last4": "0002",
+            "metadata": {},
+            "name": null,
+            "tokenization_method": null
+          },
+          "client_ip": "76.216.241.216",
+          "created": 1449721593,
+          "livemode": false,
+          "type": "card",
+          "used": false
         }
     http_version: 
-  recorded_at: Thu, 19 Nov 2015 03:35:22 GMT
+  recorded_at: Thu, 10 Dec 2015 04:26:33 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: email=bob%40example.com&plan=myflix_plan&source=tok_17Oi3uGhmKibFl0dgtsrDpI2
+      string: email=gaetano.abernathy%40fadel.net&plan=myflix_plan&source=tok_17GM0jGhmKibFl0dNqmG1FZ7
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -87,7 +114,7 @@ http_interactions:
         Kevins-MBP.attlocal.net 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
         PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Kevins-MBP.attlocal.net"}'
       Content-Length:
-      - '76'
+      - '88'
   response:
     status:
       code: 402
@@ -96,7 +123,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 02 Jan 2016 05:36:22 GMT
+      - Thu, 10 Dec 2015 04:26:34 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -114,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7e04CAEUh1xyHK
+      - req_7VMkMW9rVhYHKM
       Stripe-Version:
       - '2015-10-16'
     body:
@@ -129,5 +156,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Sat, 02 Jan 2016 05:36:22 GMT
+  recorded_at: Thu, 10 Dec 2015 04:26:34 GMT
 recorded_with: VCR 3.0.0

@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&description=MyFlix+sign+up+charge+for+bob%40example.com&source=tok_178jWdGhmKibFl0dNVjK4P4A
+      string: card[cvc]=590&card[exp_month]=11&card[exp_year]=2017&card[number]=4242424242424242
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,7 +22,7 @@ http_interactions:
         Kevins-MBP.attlocal.net 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
         PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Kevins-MBP.attlocal.net"}'
       Content-Length:
-      - '115'
+      - '82'
   response:
     status:
       code: 200
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 19 Nov 2015 03:55:59 GMT
+      - Thu, 10 Dec 2015 04:26:32 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '1462'
+      - '782'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7NUVHC5a9cTuSa
+      - req_7VMkl5WvvXacsS
       Stripe-Version:
       - '2015-10-16'
       Strict-Transport-Security:
@@ -58,39 +58,10 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_178jWdGhmKibFl0dZBVKvI1K",
-          "object": "charge",
-          "amount": 999,
-          "amount_refunded": 0,
-          "application_fee": null,
-          "balance_transaction": "txn_178jWdGhmKibFl0dAJQF2NYi",
-          "captured": true,
-          "created": 1447905359,
-          "currency": "usd",
-          "customer": null,
-          "description": "MyFlix sign up charge for bob@example.com",
-          "destination": null,
-          "dispute": null,
-          "failure_code": null,
-          "failure_message": null,
-          "fraud_details": {},
-          "invoice": null,
-          "livemode": false,
-          "metadata": {},
-          "paid": true,
-          "receipt_email": null,
-          "receipt_number": null,
-          "refunded": false,
-          "refunds": {
-            "object": "list",
-            "data": [],
-            "has_more": false,
-            "total_count": 0,
-            "url": "/v1/charges/ch_178jWdGhmKibFl0dZBVKvI1K/refunds"
-          },
-          "shipping": null,
-          "source": {
-            "id": "card_178jWdGhmKibFl0dLmoVQMj1",
+          "id": "tok_17GM0iGhmKibFl0dMvLaQGBr",
+          "object": "token",
+          "card": {
+            "id": "card_17GM0iGhmKibFl0dRadO16TF",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -102,11 +73,10 @@ http_interactions:
             "address_zip_check": null,
             "brand": "Visa",
             "country": "US",
-            "customer": null,
-            "cvc_check": "pass",
+            "cvc_check": "unchecked",
             "dynamic_last4": null,
-            "exp_month": 7,
-            "exp_year": 2018,
+            "exp_month": 11,
+            "exp_year": 2017,
             "fingerprint": "euRbtQnf6hIeXuTz",
             "funding": "credit",
             "last4": "4242",
@@ -114,17 +84,20 @@ http_interactions:
             "name": null,
             "tokenization_method": null
           },
-          "statement_descriptor": null,
-          "status": "succeeded"
+          "client_ip": "76.216.241.216",
+          "created": 1449721592,
+          "livemode": false,
+          "type": "card",
+          "used": false
         }
     http_version: 
-  recorded_at: Thu, 19 Nov 2015 03:56:00 GMT
+  recorded_at: Thu, 10 Dec 2015 04:26:32 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: email=bob%40example.com&plan=myflix_plan&source=tok_17L5WZGhmKibFl0dX6EtPqra
+      string: email=corbin%40towne.com&plan=myflix_plan&source=tok_17GM0iGhmKibFl0dMvLaQGBr
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -141,7 +114,7 @@ http_interactions:
         Kevins-MBP.attlocal.net 14.5.0 Darwin Kernel Version 14.5.0: Tue Sep  1 21:23:09
         PDT 2015; root:xnu-2782.50.1~1/RELEASE_X86_64 x86_64","hostname":"Kevins-MBP.attlocal.net"}'
       Content-Length:
-      - '76'
+      - '77'
   response:
     status:
       code: 200
@@ -150,11 +123,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 23 Dec 2015 05:50:59 GMT
+      - Thu, 10 Dec 2015 04:26:33 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2399'
+      - '2401'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -168,7 +141,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_7aG2rMXfBGz3Oo
+      - req_7VMkRVLAkXIqYN
       Stripe-Version:
       - '2015-10-16'
       Strict-Transport-Security:
@@ -177,16 +150,16 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "cus_7aG2CqjUpfuBDn",
+          "id": "cus_7VMk5eElxB0EF4",
           "object": "customer",
           "account_balance": 0,
-          "created": 1450849859,
+          "created": 1449721592,
           "currency": "usd",
-          "default_source": "card_17L5WZGhmKibFl0doDm8UYNN",
+          "default_source": "card_17GM0iGhmKibFl0dRadO16TF",
           "delinquent": false,
           "description": null,
           "discount": null,
-          "email": "bob@example.com",
+          "email": "corbin@towne.com",
           "livemode": false,
           "metadata": {},
           "shipping": null,
@@ -194,7 +167,7 @@ http_interactions:
             "object": "list",
             "data": [
               {
-                "id": "card_17L5WZGhmKibFl0doDm8UYNN",
+                "id": "card_17GM0iGhmKibFl0dRadO16TF",
                 "object": "card",
                 "address_city": null,
                 "address_country": null,
@@ -206,11 +179,11 @@ http_interactions:
                 "address_zip_check": null,
                 "brand": "Visa",
                 "country": "US",
-                "customer": "cus_7aG2CqjUpfuBDn",
+                "customer": "cus_7VMk5eElxB0EF4",
                 "cvc_check": "pass",
                 "dynamic_last4": null,
-                "exp_month": 7,
-                "exp_year": 2018,
+                "exp_month": 11,
+                "exp_year": 2017,
                 "fingerprint": "euRbtQnf6hIeXuTz",
                 "funding": "credit",
                 "last4": "4242",
@@ -221,20 +194,20 @@ http_interactions:
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7aG2CqjUpfuBDn/sources"
+            "url": "/v1/customers/cus_7VMk5eElxB0EF4/sources"
           },
           "subscriptions": {
             "object": "list",
             "data": [
               {
-                "id": "sub_7aG2hWhKq4ZPQc",
+                "id": "sub_7VMkxsuJbFDWAT",
                 "object": "subscription",
                 "application_fee_percent": null,
                 "cancel_at_period_end": false,
                 "canceled_at": null,
-                "current_period_end": 1453441859,
-                "current_period_start": 1450849859,
-                "customer": "cus_7aG2CqjUpfuBDn",
+                "current_period_end": 1452313592,
+                "current_period_start": 1449721592,
+                "customer": "cus_7VMk5eElxB0EF4",
                 "discount": null,
                 "ended_at": null,
                 "metadata": {},
@@ -253,18 +226,18 @@ http_interactions:
                   "trial_period_days": 30
                 },
                 "quantity": 1,
-                "start": 1450849859,
+                "start": 1449721592,
                 "status": "trialing",
                 "tax_percent": null,
-                "trial_end": 1453441859,
-                "trial_start": 1450849859
+                "trial_end": 1452313592,
+                "trial_start": 1449721592
               }
             ],
             "has_more": false,
             "total_count": 1,
-            "url": "/v1/customers/cus_7aG2CqjUpfuBDn/subscriptions"
+            "url": "/v1/customers/cus_7VMk5eElxB0EF4/subscriptions"
           }
         }
     http_version: 
-  recorded_at: Wed, 23 Dec 2015 05:51:00 GMT
+  recorded_at: Thu, 10 Dec 2015 04:26:33 GMT
 recorded_with: VCR 3.0.0
