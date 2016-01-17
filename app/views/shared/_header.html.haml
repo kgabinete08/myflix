@@ -1,15 +1,16 @@
 %section#top-header.row
-  %h1.col-md-2
+  %h1.col-md-1
     = link_to "MyFLiX"
   - if current_user
-    %ul.col-md-4.clearfix
+    %ul.col-md-3.clearfix
       %li= link_to "Videos", home_path
       %li= link_to "My Queue", my_queue_path
       %li= link_to "People", people_path
-    = form_tag search_videos_path, method: :get, class: "col-md-5 navbar-form" do
+    = form_tag search_videos_path, method: :get, class: "col-md-4 navbar-form" do
       .form-group
         = text_field_tag :search_term, nil, placeholder: "Search for videos here...", class: "form-control"
         = submit_tag "Search", class: "button btn btn-default"
+        = link_to "Advanced Search", advanced_search_videos_path, class: "btn"
     #user_links.pull-right
       %ul
         %li.dropdown
