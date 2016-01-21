@@ -45,4 +45,8 @@ class User < ActiveRecord::Base
   def clear_reset_token
     update_attribute(:reset_token, nil)
   end
+
+  def deactivate!
+    update_attribute(:active, false)
+  end
 end

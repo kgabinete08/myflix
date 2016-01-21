@@ -7,19 +7,19 @@ class UserSignup
 
   def sign_up(stripe_token, invitation_token)
     if @user.valid?
-      charge = StripeWrapper::Charge.create(
-        amount: 999,
+      customer = StripeWrapper::Customer.create(
+        user: @user,
         source: stripe_token,
-        description: "MyFlix sign up charge for #{@user.email}"
       )
-      if charge.successful?
+      if customer.successful?
+        @user.customer_token = customer.customer_token
         @user.save
         handle_invitation(invitation_token)
         ApplicationMailer.send_welcome_email(@user).deliver
         @status = :success
       else
         @status = :failed
-        @error_message = charge.error_message
+        @error_message = customer.error_message
       end
     else
       @status = :failed

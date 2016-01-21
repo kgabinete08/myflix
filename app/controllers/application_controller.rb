@@ -9,12 +9,5 @@ class ApplicationController < ActionController::Base
     User.find(session[:user_id]) if session[:user_id]
   end
 
-  def require_admin
-    if !current_user.admin?
-      flash[:danger] = "Authorized users only."
-      redirect_to home_path
-    end
-  end
-
   helper_method :current_user
 end
