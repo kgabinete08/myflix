@@ -45,6 +45,7 @@ feature "User interacts with advanced search", :elasticsearch do
       check "Include Reviews"
       click_button "Search"
     end
+
     expect(page).to have_content "Star Wars: Episode 1"
     expect(page).to have_no_content "Star Wars: Episode 2"
   end
@@ -55,9 +56,9 @@ feature "User interacts with advanced search", :elasticsearch do
       check "Include Reviews"
       select "4.4", from: "rating_from"
       select "4.6", from: "rating_to"
-
       click_button "Search"
     end
+
     expect(page).to have_content "Star Trek"
     expect(page).to have_no_content "Star Wars: Episode 1"
     expect(page).to have_no_content "Star Wars: Episode 2"
